@@ -1,10 +1,11 @@
 package CategoriesAndProducts;
+import login.Shop;
 import login.person;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Admin extends person{
-    private ArrayList<Category> Categories = new ArrayList<Category>();
+public class Admin extends person {
+
     ArrayList<Deals> Deal = new ArrayList<Deals>();
 
     public Admin() {
@@ -63,8 +64,8 @@ public class Admin extends person{
             System.out.println("Add Category ID");
             Scanner obj = new Scanner(System.in);
             int key = obj.nextInt();
-            for (int i = 0; i < Categories.size(); i++) {
-                if (key == Categories.get(i).getId()) {
+            for (int i = 0; i < Shop.Categories.size(); i++) {
+                if (key == Shop.Categories.get(i).getId()) {
                     System.out.println("Dear Admin, the category ID is already used!!! Please set a different and a unique category ID");
                     m=1;
                 }
@@ -83,9 +84,9 @@ public class Admin extends person{
         System.out.println("Enter Category ID");
         Scanner obj = new Scanner(System.in);
         int key = obj.nextInt();
-        for (int i = 0; i < Categories.size(); i++) {
-            if (key == Categories.get(i).getId()) {
-                Categories.get(i).addProduct();
+        for (int i = 0; i < Shop.Categories.size(); i++) {
+            if (key == Shop.Categories.get(i).getId()) {
+                Shop.Categories.get(i).addProduct();
                 return;
             }
         }
@@ -124,30 +125,18 @@ public class Admin extends person{
     }
 
     private float priceProduct(float id){
-        float Price= findProduct(id).getPrice();
+        float Price= Shop.findProduct(id).getPrice();
         return Price;
     }
 
-    private Product findProduct(float id){
-        int I = (int) id;
-        for (int i = 0; i < Categories.size(); i++) {
-            if (I == Categories.get(i).getId()) {
-                for(int j =0 ; j<Categories.get(i).Products.size();j++){
-                    if(Categories.get(i).Products.get(j).getId()==id){
-                        return Categories.get(i).Products.get(j);
-                    }
-                }
-            }
-        }
-        return null;
-    }
+
     private void setDiscount(){
         System.out.println("Dear Admin give the Product ID you want to add discount for ");
         System.out.println("Enter the Product ID: ");
 
         Scanner obj = new Scanner(System.in);
         float id = obj.nextFloat();
-        Product p = findProduct(id);
+        Product p = Shop.findProduct(id);
         p.discount();
 
 

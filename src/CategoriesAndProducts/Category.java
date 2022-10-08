@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Category {
     private int id;
     private String name;
-    ArrayList<Product> Products = new ArrayList<Product>();
+    public ArrayList<Product> Products = new ArrayList<Product>();
 
 
     public Category(String name, int id){
@@ -23,7 +23,7 @@ public class Category {
         System.out.println("Product Name: ");
         String name = obj.nextLine();
         System.out.println("Product Id: ");
-        Float Id = obj.nextFloat();
+        float Id = obj.nextFloat();
         System.out.println("Price : ");
         float price = obj.nextFloat();
         System.out.println("Other Details : ");

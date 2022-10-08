@@ -20,11 +20,19 @@ public class Product {
         this.details = details;
     }
 
-    float getId() {
+    public String getName() {
+        return name;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public float getId() {
         return id;
     }
 
-    float getPrice() {
+    public float getPrice() {
         return price;
     }
 
@@ -37,5 +45,17 @@ public class Product {
         this.discount_elite = e_d;
         this.discount_prime = p_d;
         this.discount_normal = n_d;
+    }
+
+    public float getDiscount_elite() {
+        return discount_elite;
+    }
+
+    public float getDiscount_normal() {
+        return discount_normal;
+    }
+
+    public float getDiscount_prime() {
+        return discount_prime;
     }
 }
