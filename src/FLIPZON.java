@@ -1,9 +1,13 @@
 import CategoriesAndProducts.Admin;
+import PERSON.Customer;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class FLIPZON {
     Admin Beff = new Admin();
+
+    private HashMap<String, Customer> name_customer = new HashMap<>();
     private void Welcome_Menu(){
         while(true){
             System.out.println("1) Enter as Admin");
@@ -38,11 +42,37 @@ public class FLIPZON {
         int key = obj.nextInt();
 
         if(key==1){
-
+            add_Customer();
         } else if (key==2) {
-
+            login_Customer();
         } else if (key==3) {
             return;
+        }
+    }
+
+    private void add_Customer(){
+        System.out.println("Enter name : ");
+        Scanner obj = new Scanner(System.in);
+        String nam = obj.nextLine();
+
+        System.out.println("Enter password : ");
+        Scanner ob = new Scanner(System.in);
+        String pass = ob.nextLine();
+
+        name_customer.put(nam,new Customer(nam,pass));
+    }
+
+    private void login_Customer(){
+        System.out.println("Enter name : ");
+        Scanner obj = new Scanner(System.in);
+        String nam = obj.nextLine();
+
+        if(name_customer.containsKey(nam)){
+            Customer C = name_customer.get(nam);
+            C.WelcomeCustomer();
+        }
+        else{
+            System.out.println("Wrong name");
         }
     }
     public static void main(String[] args) {

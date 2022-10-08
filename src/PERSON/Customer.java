@@ -1,13 +1,32 @@
+package PERSON;
+import login.person;
 import java.util.Scanner;
 
-public class Customer {
-    private String name;
-    private String password;
+public class Customer extends person {
+
     private float Money = 1000;
     private String status = "NORMAL";
 
-    private void WelcomeCustomer() {
-        System.out.println("Welcome " + name + "!!");
+    public Customer(String name,String password){
+        super(name,password);
+    }
+
+    private boolean Authentication(){
+        Scanner obj = new Scanner(System.in);
+        String pass = obj.nextLine();
+
+        return super.Authentication(pass);
+
+    }
+
+
+    public void WelcomeCustomer() {
+        boolean p = Authentication();
+        if(p==false){
+            System.out.println("Wrong password");
+            return;
+        }
+        System.out.println("Welcome " + getName() + "!!");
         CustomerOptions();
     }
     private void CustomerOptions(){

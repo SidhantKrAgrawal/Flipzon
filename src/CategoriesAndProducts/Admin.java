@@ -1,27 +1,23 @@
 package CategoriesAndProducts;
-
-import CategoriesAndProducts.Category;
-
+import login.person;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Admin {
-    private String username = "Beff Jezos";
-    private String password = "JeffBezos";
+public class Admin extends person{
     private ArrayList<Category> Categories = new ArrayList<Category>();
     ArrayList<Deals> Deal = new ArrayList<Deals>();
 
+    public Admin() {
+        super("Beff Jezos", "JeffBezos");
+    }
     private boolean Authentication(){
         Scanner obj = new Scanner(System.in);
         String user = obj.nextLine();
         String pass = obj.nextLine();
 
-        if(user == username && pass == password){
-            return true;
-        }
-        return false;
-    }
+        return super.Authentication(user,pass);
 
+    }
     public void welcomeAdmin(){
         boolean p = Authentication();
         if(p==false){
@@ -29,7 +25,7 @@ public class Admin {
             return;
         }
 
-        System.out.println("Welcome "+username+"!!!!!");
+        System.out.println("Welcome "+getName()+"!!!!!");
         System.out.println("");
         System.out.println("Please choose any one of the following actions:");
         System.out.println("1) Add category");
