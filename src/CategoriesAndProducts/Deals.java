@@ -1,12 +1,13 @@
 package CategoriesAndProducts;
 
-public class Deals {
+public class Deals{
 
     private float Prod_ID1;
     private float Prod_ID2;
 
     private static int Id=0;
     private float Price;
+
 
     public void setProd_ID1(float prod_ID1) {
         Prod_ID1 = prod_ID1;
@@ -17,7 +18,7 @@ public class Deals {
     }
 
     public void setPrice(float price) {
-        Price = price;
+        this.Price = price;
     }
 
     public float getProd_ID1() {
@@ -32,7 +33,11 @@ public class Deals {
         return Price;
     }
 
-    public static void setId() {
-        Id++;
+    public void setId() {
+        this.Id++;
+    }
+
+    public static int getId() {
+        return Id;
     }
 }

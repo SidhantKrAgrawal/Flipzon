@@ -9,9 +9,10 @@ public class Admin extends person {
 
 
     public Admin() {
-        super("Beff Jezos", "JeffBezos");
+        super("Sidhant", "2021495");
     }
     private boolean Authentication(){
+        System.out.println("Dear Admin, \n  Please enter your username and password");
         Scanner obj = new Scanner(System.in);
         String user = obj.nextLine();
         String pass = obj.nextLine();
@@ -27,34 +28,37 @@ public class Admin extends person {
         }
 
         System.out.println("Welcome "+getName()+"!!!!!");
-        System.out.println("");
-        System.out.println("Please choose any one of the following actions:");
-        System.out.println("1) Add category");
-        System.out.println("2) Delete category");
-        System.out.println("3) Add Product");
-        System.out.println("4) Delete Product");
-        System.out.println("5) Set Discount on Product");
-        System.out.println("6) Add giveaway deal");
-        System.out.println("7) Back");
+        while(true){
+            System.out.println("");
+            System.out.println("Please choose any one of the following actions:");
+            System.out.println("1) Add category");
+            System.out.println("2) Delete category");
+            System.out.println("3) Add Product");
+            System.out.println("4) Delete Product");
+            System.out.println("5) Set Discount on Product");
+            System.out.println("6) Add giveaway deal");
+            System.out.println("7) Back");
 
-        Scanner obj = new Scanner(System.in);
-        int key = obj.nextInt();
+            Scanner obj = new Scanner(System.in);
+            int key = obj.nextInt();
 
-        if(key==1){
-            addCategory();
-        }else if (key==2){
-            DeleteCategory();
-        } else if (key==3) {
-            AddProduct();
-        } else if (key==4) {
-            DeleteProduct();
-        } else if (key==5) {
-            setDiscount();
-        } else if (key==6) {
-            GiveAway();
-        } else if (key==7) {
-            return;
+            if(key==1){
+                addCategory();
+            }else if (key==2){
+                DeleteCategory();
+            } else if (key==3) {
+                AddProduct();
+            } else if (key==4) {
+                DeleteProduct();
+            } else if (key==5) {
+                setDiscount();
+            } else if (key==6) {
+                GiveAway();
+            } else if (key==7) {
+                return;
+            }
         }
+
     }
 
     private void DeleteCategory(){
@@ -79,7 +83,9 @@ public class Admin extends person {
             System.out.println("Add Category ID");
             Scanner obj = new Scanner(System.in);
             int key = obj.nextInt();
+
             for (int i = 0; i < Shop.Categories.size(); i++) {
+
                 if (key == Shop.Categories.get(i).getId()) {
                     System.out.println("Dear Admin, the category ID is already used!!! Please set a different and a unique category ID");
                     m=1;
@@ -90,7 +96,9 @@ public class Admin extends person {
                 Scanner ob = new Scanner(System.in);
                 String name_cat = ob.nextLine();
                 Category Cat = new Category(name_cat,key);
+                Shop.Categories.add(Cat);
                 Cat.addProduct();
+
             }
         }while (m==1);
     }
@@ -118,7 +126,7 @@ public class Admin extends person {
             if (I == Shop.Categories.get(i).getId()) {
                 for(int j =0 ; j<Shop.Categories.get(i).Products.size();j++){
                     if(Shop.Categories.get(i).Products.get(j).getId()==id){
-                        Shop.Categories.get(i).Products.remove(i);
+                        Shop.Categories.get(i).Products.remove(j);
                         return;
                     }
                 }

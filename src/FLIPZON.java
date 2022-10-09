@@ -35,26 +35,30 @@ public class FLIPZON {
     }
 
     private void Enter_Customer(){
-        System.out.println("1) Sign up");
-        System.out.println("2) Log in");
-        System.out.println("3) Back");
+        while(true){
+            System.out.println("1) Sign up");
+            System.out.println("2) Log in");
+            System.out.println("3) Back");
 
-        Scanner obj = new Scanner(System.in);
-        int key = obj.nextInt();
+            Scanner obj = new Scanner(System.in);
+            int key = obj.nextInt();
 
-        if(key==1){
-            add_Customer();
-        } else if (key==2) {
-            login_Customer();
-        } else if (key==3) {
-            return;
+            if(key==1){
+                add_Customer();
+            } else if (key==2) {
+                login_Customer();
+            } else if (key==3) {
+                return;
+            }
         }
+
     }
 
     private void add_Customer(){
         System.out.println("Enter name : ");
         Scanner obj = new Scanner(System.in);
         String nam = obj.nextLine();
+
 
         System.out.println("Enter password : ");
         Scanner ob = new Scanner(System.in);

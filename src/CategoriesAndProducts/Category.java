@@ -24,14 +24,15 @@ public class Category {
     void addProduct(){
         System.out.println("Add a Product:- ");
         Scanner obj = new Scanner(System.in);
-        System.out.println("Product Name: ");
+        System.out.print("Product Name: ");
         String name = obj.nextLine();
-        System.out.println("Product Id: ");
+        System.out.print("Product Id: ");
         float Id = obj.nextFloat();
-        System.out.println("Price : ");
+        System.out.print("Price : ");
         float price = obj.nextFloat();
-        System.out.println("Other Details : ");
-        String detail = obj.nextLine();
+        System.out.print("Other Details : ");
+        Scanner ob = new Scanner(System.in);
+        String detail = ob.nextLine();
 
         Products.add(new Product(name,Id,price,detail));
     }

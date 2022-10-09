@@ -1,4 +1,6 @@
 package PERSON;
+import CategoriesAndProducts.Deals;
+import CategoriesAndProducts.Product;
 import login.*;
 
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ public class Customer extends person {
 
     ArrayList<Integer> Coupons = new ArrayList<Integer>();
     ArrayList<ProductInCart> Cart = new ArrayList<ProductInCart>();
+
+    ArrayList<Deals> Cart_Deal = new ArrayList<Deals>();
 
     public Customer(String name,String password){
         super(name,password);
@@ -38,54 +42,71 @@ public class Customer extends person {
         CustomerOptions();
     }
     private void CustomerOptions(){
-        System.out.println(" ");
-        System.out.println("1) browse products ");
-        System.out.println("2) browse deals");
-        System.out.println("3) add a product to cart");
-        System.out.println("4) add products in deal to cart");
-        System.out.println("5) view coupons");
-        System.out.println("6) check account balance");
-        System.out.println("7) view cart");
-        System.out.println("8) empty cart");
-        System.out.println("9) checkout cart");
-        System.out.println("10) upgrade customer status");
-        System.out.println("11) Add amount to wallet");
-        System.out.println("12) back");
+        while(true){
+            System.out.println(" ");
+            System.out.println("1) browse products ");
+            System.out.println("2) browse deals");
+            System.out.println("3) add a product to cart");
+            System.out.println("4) add products in deal to cart");
+            System.out.println("5) view coupons");
+            System.out.println("6) check account balance");
+            System.out.println("7) view cart");
+            System.out.println("8) empty cart");
+            System.out.println("9) checkout cart");
+            System.out.println("10) upgrade customer status");
+            System.out.println("11) Add amount to wallet");
+            System.out.println("12) back");
 
+            Scanner obj = new Scanner(System.in);
+            int key = obj.nextInt();
+
+            if(key==1){
+                Shop.Product_Catalog();
+            } else if (key==2) {
+                Shop.Available_Deals();
+            } else if (key==3) {
+                add_product();
+            } else if (key==4) {
+                AddDeals();
+            } else if (key==5) {
+                ViewCoupons();
+            } else if (key==6) {
+                getMoney();
+            } else if (key==7) {
+                ViewCart();
+            } else if (key==8) {
+                Cart.clear();
+                System.out.println("Cart successfully emptied");
+            } else if (key==9) {
+                this.checkout_cart();
+            } else if (key==10) {
+                this.Upgrade_Status();
+            } else if (key==11) {
+                this.AddAmount();
+            } else if (key==12) {
+                System.out.println("Bye "+getName());
+                return;
+            }
+        }
+
+    }
+
+    private void AddDeals(){
+        System.out.println("Enter Deal Id");
         Scanner obj = new Scanner(System.in);
-        int key = obj.nextInt();
+        int id = obj.nextInt();
 
-        if(key==1){
-            Shop.Product_Catalog();
-        } else if (key==2) {
-            Shop.Available_Deals();
-        } else if (key==3) {
-            add_product();
-        } else if (key==4) {
-
-        } else if (key==5) {
-            ViewCoupons();
-        } else if (key==6) {
-            getMoney();
-        } else if (key==7) {
-            ViewCart();
-        } else if (key==8) {
-            Cart.clear();
-            System.out.println("Cart successfully emptied");
-        } else if (key==9) {
-            this.checkout_cart();
-        } else if (key==10) {
-            this.Upgrade_Status();
-        } else if (key==11) {
-            this.AddAmount();
-        } else if (key==12) {
-            System.out.println("Bye "+getName());
-            return;
+        for(int i=0;i<Shop.Deal.size();i++){
+            if(id==Shop.Deal.get(i).getId()){
+                Cart_Deal.add(Shop.Deal.get(i));
+            }
         }
     }
     private void ViewCoupons(){
         for(int i=0;i<Coupons.size();i++){
-            System.out.println(Coupons.get(i));
+            if(Coupons.get(i)!=0){
+                System.out.println(Coupons.get(i));
+            }
         }
     }
 
@@ -103,6 +124,27 @@ public class Customer extends person {
             System.out.println("Quantity: " +q);
             System.out.println("Price : Rs. "+price);
             System.out.println(" ");
+        }
+
+        for(int i=0;i<Cart_Deal.size();i++){
+            float id1 = Cart_Deal.get(i).getProd_ID1();
+            float id2 = Cart_Deal.get(i).getProd_ID2();
+            Product p1 = Shop.findProduct(id1);
+            Product p2 = Shop.findProduct(id2);
+            System.out.println(" ");
+            System.out.println("Deal Id:  "+Cart_Deal.get(i).getId());
+            System.out.println(" ");
+            System.out.println("Product Name 1 : "+ p1.getName());
+            System.out.println("Product ID 1 : "+ p1.getId());
+            System.out.println(p1.getDetails());
+            System.out.println(" ");
+            System.out.println("Product Name 2 : "+ p2.getName());
+            System.out.println("Product ID 2 : "+ p2.getId());
+            System.out.println(p2.getDetails());
+            System.out.println(" ");
+            System.out.println("Price : Rs. "+Cart_Deal.get(i).getPrice());
+            System.out.println(" ");
+            System.out.println(("------"));
         }
     }
     private boolean Transact(float rupee){
@@ -123,16 +165,16 @@ public class Customer extends person {
         }
     }
     private void Status_Prime(){
-        if(this.status=="NORMAL"){
+        if(this.status.equals("NORMAL")){
            updation_method(200,"PRIME");
            return;
         }
     }
 
     private void Status_Elite(){
-        if(this.status=="NORMAL"){
+        if(this.status.equals("NORMAL")){
             updation_method(300,"ELITE");
-        } else if (this.status=="PRIME") {
+        } else if (this.status.equals("PRIME")) {
            updation_method(100,"ELITE");
         }
     }
@@ -142,9 +184,9 @@ public class Customer extends person {
         System.out.println("Choose new status: ");
         Scanner obj = new Scanner(System.in);
         String status = obj.nextLine();
-        if(status=="PRIME"){
+        if(status.equals("PRIME")){
             this.Status_Prime();
-        } else if (status == "ELITE") {
+        } else if (status.equals("ELITE")) {
             this.Status_Elite();
         }
     }
@@ -181,36 +223,54 @@ public class Customer extends person {
         for(int i=0;i< Cart.size();i++) {
             price = price +Cart.get(i).getPrice();
 
-            if (this.status == "ELITE") {
+            if (this.status.equals("ELITE")) {
                 float disc = discount(10,Cart.get(i).getProduct().getDiscount_elite());
                 Cart.get(i).setComputed_discount(disc);
-                Cart.get(i).setFinal_price(((float) (price * (100-disc))/100));
+                Cart.get(i).setFinal_price(((float) (Cart.get(i).getPrice() * (100-disc))/100));
                 pre_price = pre_price + Cart.get(i).getFinal_price();
                 fin_price = pre_price + 100;
-            } else if (this.status == "PRIME") {
+            } else if (this.status.equals("PRIME") ){
                 float disc = discount(5,Cart.get(i).getProduct().getDiscount_prime());
                 Cart.get(i).setComputed_discount(disc);
-                Cart.get(i).setFinal_price(((float) (price * (100-disc))/100));
+                Cart.get(i).setFinal_price(((float) (Cart.get(i).getPrice() * (100-disc))/100));
                 pre_price = pre_price + Cart.get(i).getFinal_price();
-                fin_price = (float) (pre_price + 100 + pre_price * (0.02));
-            } else if (this.status == "NORMAL") {
+                fin_price = (float) (pre_price + 100 + price * (0.02));
+            } else if (this.status.equals("NORMAL")) {
                 float disc = discount(0,Cart.get(i).getProduct().getDiscount_prime());
                 Cart.get(i).setComputed_discount(disc);
-                Cart.get(i).setFinal_price(((float) (price * (100-disc))/100));
+                Cart.get(i).setFinal_price(((float) (Cart.get(i).getPrice() * (100-disc))/100));
                 pre_price = pre_price + Cart.get(i).getFinal_price();
+                fin_price = (float) (pre_price + 100 + price * (0.05));
+            }
+        }
+
+        for(int i=0;i<Cart_Deal.size();i++){
+            price = price +Cart_Deal.get(i).getPrice();
+
+            if (this.status.equals("ELITE")) {
+
+                pre_price = price;
+                fin_price = pre_price + 100;
+            } else if (this.status.equals("PRIME")) {
+
+                pre_price = price;
+                fin_price = (float) (pre_price + 100 + pre_price * (0.02));
+            } else if (this.status.equals("NORMAL")) {
+
+                pre_price = price;
                 fin_price = (float) (pre_price + 100 + pre_price * (0.05));
             }
         }
 
         boolean b = Transact(fin_price);
         if(b==true){
-            checkout(pre_price,fin_price);
+            checkout(pre_price,fin_price,price);
         }
 
 
     }
 
-    private void checkout(float pre_price, float fin_price){
+    private void checkout(float pre_price, float fin_price,float tot){
         System.out.println("Your Order is placed successfully. Details: ");
         for(int i=0;i< Cart.size();i++){
             String name = Cart.get(i).getProduct().getName();
@@ -225,12 +285,32 @@ public class Customer extends person {
             System.out.println("Quantity: " +q);
             System.out.println("Price : Rs. "+price);
 
-            System.out.println("Discount: "+Cart.get(i).getComputed_discount()+" of "+Cart.get(i).getFinal_price());
+            System.out.println("Discount: "+Cart.get(i).getComputed_discount()+"% of "+price);
             System.out.println(" ");
+        }
+        for (int i=0;i<Cart_Deal.size();i++){
+            float id1 = Cart_Deal.get(i).getProd_ID1();
+            float id2 = Cart_Deal.get(i).getProd_ID2();
+            Product p1 = Shop.findProduct(id1);
+            Product p2 = Shop.findProduct(id2);
+            System.out.println(" ");
+            System.out.println("Deal Id:  "+Cart_Deal.get(i).getId());
+            System.out.println(" ");
+            System.out.println("Product Name 1 : "+ p1.getName());
+            System.out.println("Product ID 1 : "+ p1.getId());
+            System.out.println(p1.getDetails());
+            System.out.println(" ");
+            System.out.println("Product Name 2 : "+ p2.getName());
+            System.out.println("Product ID 2 : "+ p2.getId());
+            System.out.println(p2.getDetails());
+            System.out.println(" ");
+            System.out.println("Price : Rs. "+Cart_Deal.get(i).getPrice());
+            System.out.println(" ");
+            System.out.println(("------"));
         }
         System.out.println("Total Price : "+pre_price);
         System.out.println(" ");
-        if(this.status == "ELITE"){
+        if(this.status.equals("ELITE")){
             System.out.println("Delivery charges: Rs."+100);
             System.out.println("Final Total Cost: Rs."+fin_price);
             System.out.println("Your order will be delivered within 2 days");
@@ -243,16 +323,16 @@ public class Customer extends person {
             if(pre_price>5000){
                 add_Coupons(3,4);
             }
-        } else if (this.status == "PRIME") {
-            System.out.println("Delivery charges: Rs."+100+"2% of "+pre_price+"="+(fin_price-pre_price));
+        } else if (this.status.equals("PRIME")) {
+            System.out.println("Delivery charges: Rs."+100+" + 2% of "+tot+" = "+(fin_price-pre_price));
             System.out.println("Final Total Cost: Rs."+fin_price);
-            System.out.println("Your order will be delivered within 7 to 10 days");
+            System.out.println("Your order will be delivered within 3 to 6 days");
 
             if(pre_price>5000){
                 add_Coupons(1,2);
             }
-        } else if (this.status == "NORMAL") {
-            System.out.println("Delivery charges: Rs."+100+"5% of "+pre_price+"="+(fin_price-pre_price));
+        } else if (this.status.equals("NORMAL")) {
+            System.out.println("Delivery charges: Rs."+100+" + 5% of "+pre_price+" = "+(fin_price-pre_price));
             System.out.println("Final Total Cost: Rs."+fin_price);
             System.out.println("Your order will be delivered within 7 to 10 days");
         }
@@ -260,18 +340,24 @@ public class Customer extends person {
     }
 
     private float max_3(float first,float second,float third){
-        if(first>second && first >third){
+        if(first>=second && first >=third){
             return first;
-        } else if (second>first && second>third) {
+        } else if (second>=first && second>=third) {
             return second;
         }
         return third;
     }
 
     private float discount(float stat,float admin){
+        Coupons.add(0);
         Collections.sort(Coupons,Collections.reverseOrder());
         float d = max_3(stat,admin,Coupons.get(0));
-        Coupons.remove(0);
+        if(d==Coupons.get(0)){
+            Coupons.remove(0);
+            Coupons.add(0);
+        }
+
+
         return d;
     }
 

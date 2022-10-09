@@ -18,7 +18,7 @@ public class person {
 
 
     protected boolean Authentication(String username, String password) {
-        if (username == this.name && password == this.password) {
+        if (username.equals(this.name) && password.equals(this.password)) {
             return true;
         }
         return false;
@@ -26,7 +26,7 @@ public class person {
     }
 
     protected boolean Authentication(String password) {
-        if (password == this.password) {
+        if (password.equals(this.password)) {
             return true;
         }
         return false;

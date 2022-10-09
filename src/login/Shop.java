@@ -30,12 +30,16 @@ public class Shop {
             System.out.println(Categories.get(i).getName());
             System.out.println(" ");
             for(int j =0;j<Categories.get(i).Products.size();j++){
-                System.out.println(Categories.get(i).Products.get(i).getName());
+                System.out.println(Categories.get(i).Products.get(j).getName());
             }
         }
     }
 
     public static void Available_Deals(){
+        if(Deal.size()==0){
+            System.out.println("Dear User, there are no deals for now!!! Please check regularly for exciting deals");
+            return;
+        }
         for(int i=0;i<Deal.size();i++){
             System.out.println("Product 1: "+Deal.get(i).getProd_ID1()+" Product 2: "+ Deal.get(i).getProd_ID2()+" Price : "+ Deal.get(i).getPrice());
         }

@@ -23,11 +23,9 @@ public class Product {
     public String getName() {
         return name;
     }
-
     public String getDetails() {
         return details;
     }
-
     public float getId() {
         return id;
     }
