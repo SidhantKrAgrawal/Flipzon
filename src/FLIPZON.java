@@ -1,5 +1,6 @@
 import CategoriesAndProducts.Admin;
 import PERSON.Customer;
+import login.Shop;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -22,9 +23,9 @@ public class FLIPZON {
             if(key==1){
                 Beff.welcomeAdmin();
             }else if (key==2){
-
+                Shop.Product_Catalog();
             } else if (key==3) {
-
+                Shop.Available_Deals();
             } else if (key==4) {
                 Enter_Customer();
             } else if (key==5) {

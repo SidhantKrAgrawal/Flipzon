@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Admin extends person {
 
-    ArrayList<Deals> Deal = new ArrayList<Deals>();
+
 
     public Admin() {
         super("Beff Jezos", "JeffBezos");
@@ -43,11 +43,11 @@ public class Admin extends person {
         if(key==1){
             addCategory();
         }else if (key==2){
-
+            DeleteCategory();
         } else if (key==3) {
             AddProduct();
         } else if (key==4) {
-
+            DeleteProduct();
         } else if (key==5) {
             setDiscount();
         } else if (key==6) {
@@ -55,6 +55,21 @@ public class Admin extends person {
         } else if (key==7) {
             return;
         }
+    }
+
+    private void DeleteCategory(){
+        System.out.println("Enter Category ID you want to delete: ");
+        Scanner obj = new Scanner(System.in);
+        int key = obj.nextInt();
+
+        for(int i=0;i<Shop.Categories.size();i++){
+            if(key==Shop.Categories.get(i).getId()){
+                Shop.Categories.remove(i);
+                return;
+            }
+        }
+        System.out.println("Dear Admin , the category ID does not exist");
+        return;
     }
 
     private void addCategory(){
@@ -94,6 +109,25 @@ public class Admin extends person {
         return;
     }
 
+    public void DeleteProduct(){
+        System.out.println("Enter the Product ID: ");
+        Scanner obj = new Scanner(System.in);
+        float id = obj.nextFloat();
+        int I = (int) id;
+        for (int i = 0; i < Shop.Categories.size(); i++) {
+            if (I == Shop.Categories.get(i).getId()) {
+                for(int j =0 ; j<Shop.Categories.get(i).Products.size();j++){
+                    if(Shop.Categories.get(i).Products.get(j).getId()==id){
+                        Shop.Categories.get(i).Products.remove(i);
+                        return;
+                    }
+                }
+            }
+        }
+        System.out.println("ID Invalid!!!");
+        return;
+    }
+
     private void GiveAway(){
         System.out.println("Dear Admin give the Product IDs you want to combine and giveaway a deal for");
 
@@ -120,7 +154,9 @@ public class Admin extends person {
             D.setProd_ID1(id1);
             D.setProd_ID2(id2);
             D.setPrice(Price);
-            Deal.add(D);
+
+            Shop.Deal.add(D);
+            D.setId();
         }
     }
 
@@ -141,6 +177,8 @@ public class Admin extends person {
 
 
     }
+
+
 
 
 }

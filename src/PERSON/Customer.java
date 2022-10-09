@@ -56,21 +56,22 @@ public class Customer extends person {
         int key = obj.nextInt();
 
         if(key==1){
-
+            Shop.Product_Catalog();
         } else if (key==2) {
-
+            Shop.Available_Deals();
         } else if (key==3) {
             add_product();
         } else if (key==4) {
 
         } else if (key==5) {
-
+            ViewCoupons();
         } else if (key==6) {
             getMoney();
         } else if (key==7) {
-
+            ViewCart();
         } else if (key==8) {
-
+            Cart.clear();
+            System.out.println("Cart successfully emptied");
         } else if (key==9) {
             this.checkout_cart();
         } else if (key==10) {
@@ -78,10 +79,32 @@ public class Customer extends person {
         } else if (key==11) {
             this.AddAmount();
         } else if (key==12) {
+            System.out.println("Bye "+getName());
             return;
         }
     }
+    private void ViewCoupons(){
+        for(int i=0;i<Coupons.size();i++){
+            System.out.println(Coupons.get(i));
+        }
+    }
 
+    private void ViewCart(){
+        for(int i=0;i<Cart.size();i++){
+            String name = Cart.get(i).getProduct().getName();
+            float id = Cart.get(i).getProduct().getId();
+            String details = Cart.get(i).getProduct().getDetails();
+            float price = Cart.get(i).getProduct().getPrice();
+            int q = Cart.get(i).getQuantity();
+            System.out.println(" ");
+            System.out.println("Product Name : "+ name);
+            System.out.println("Product ID : "+ id);
+            System.out.println(details);
+            System.out.println("Quantity: " +q);
+            System.out.println("Price : Rs. "+price);
+            System.out.println(" ");
+        }
+    }
     private boolean Transact(float rupee){
         if(this.Money>rupee){
             this.Money= this.Money - rupee;
@@ -233,8 +256,7 @@ public class Customer extends person {
             System.out.println("Final Total Cost: Rs."+fin_price);
             System.out.println("Your order will be delivered within 7 to 10 days");
         }
-
-
+        Cart.clear();
     }
 
     private float max_3(float first,float second,float third){

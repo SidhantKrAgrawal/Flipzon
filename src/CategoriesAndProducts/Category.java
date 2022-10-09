@@ -17,6 +17,10 @@ public class Category {
         return this.id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     void addProduct(){
         System.out.println("Add a Product:- ");
         Scanner obj = new Scanner(System.in);
